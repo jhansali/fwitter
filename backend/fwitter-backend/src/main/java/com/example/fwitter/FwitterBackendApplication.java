@@ -24,12 +24,12 @@ public class FwitterBackendApplication {
 	CommandLineRunner run(RoleRepository roleRepo, UserService userService) {
 		return args->{
 			roleRepo.save(new Role(1, "USER"));
-			ApplicationUser u = new ApplicationUser();
-			
-			u.setFirstName("jill");
-			u.setLastName("hansalia");
-			
-			userService.registerUser(u);
+//			ApplicationUser u = new ApplicationUser();
+//			
+//			u.setFirstName("jill");
+//			u.setLastName("hansalia");
+//			
+//			userService.registerUser(u);
 		};
 	}
 }
