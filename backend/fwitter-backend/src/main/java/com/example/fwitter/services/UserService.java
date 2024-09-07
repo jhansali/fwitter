@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.fwitter.exceptions.EmailAlreadyTakenException;
 import com.example.fwitter.exceptions.EmailAreadyTakenException;
+import com.example.fwitter.exceptions.UserDoesNotExistException;
 import com.example.fwitter.models.ApplicationUser;
 import com.example.fwitter.models.RegistrationObject;
 import com.example.fwitter.models.Role;
@@ -23,6 +24,18 @@ public class UserService {
 	public UserService(UserRepository userRepo, RoleRepository roleRepo) {
 		this.userRepo = userRepo;
 		this.roleRepo = roleRepo;
+	}
+	
+	public ApplicationUser getUserByUsername(String username) {
+		return userRepo.findByUsername(username).orElseThrow(UserDoesNotExistException::new);
+	}
+	
+	public ApplicationUser updateUser(ApplicationUser user) {
+		try {
+			return userRepo.save(user);
+		}catch(Exception e) {
+			throw new EmailAlreadyTakenException();
+		}
 	}
 	
 	public ApplicationUser registerUser(RegistrationObject ro) {
