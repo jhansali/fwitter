@@ -54,8 +54,15 @@ public class ApplicationUser {
 	
 	private Set<Role> authorities;
 	
+	private Boolean enabled;
+	
+	@Column(nullable = true)
+	@JsonIgnore
+	private Long Verification;
+	
 	public ApplicationUser() {
 		this.authorities = new HashSet<>();
+		this.enabled = false;
 	}
 
 	public Integer getUserId() {
@@ -130,11 +137,30 @@ public class ApplicationUser {
 		this.authorities = authorities;
 	}
 
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public Long getVerification() {
+		return Verification;
+	}
+
+	public void setVerification(Long verification) {
+		Verification = verification;
+	}
+
 	@Override
 	public String toString() {
 		return "ApplicationUser [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
 				+ email + ", phone=" + phone + ", dateOfBirth=" + dateOfBirth + ", username=" + username + ", password="
-				+ password + ", authorities=" + authorities + "]";
+				+ password + ", authorities=" + authorities + ", enabled=" + enabled + ", Verification=" + Verification
+				+ "]";
 	}
+	
+	
 	
 }

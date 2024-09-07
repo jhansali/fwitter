@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.fwitter.exceptions.EmailAlreadyTakenException;
-import com.example.fwitter.exceptions.EmailAreadyTakenException;
 import com.example.fwitter.exceptions.UserDoesNotExistException;
 import com.example.fwitter.models.ApplicationUser;
 import com.example.fwitter.models.RegistrationObject;
@@ -71,11 +70,26 @@ public class UserService {
 		}
 	}
 	
+	public void generateEmailVerification(String username) {
+		
+		ApplicationUser user = userRepo.findByUsername(username).orElseThrow(UserDoesNotExistException::new);
+		
+		user.setVerification(generateVerificationNumber());
+		
+		userRepo.save(user);
+		
+	}
+	
 	private String generateUsername(String name) {
 		
 		long generatedNumber = (long) Math.floor(Math.random()*1_000_000_000);
 		return name+generatedNumber;
 		
+	}
+	
+	private Long generateVerificationNumber() {
+		
+		return (long) Math.floor(Math.random()*1_000_000_000);
 	}
 	
 }
