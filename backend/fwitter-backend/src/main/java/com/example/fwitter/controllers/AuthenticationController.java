@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.fwitter.exceptions.EmailAlreadyTakenException;
 import com.example.fwitter.exceptions.EmailFailedToSendException;
+import com.example.fwitter.exceptions.IncorrectVerificationCodeException;
 import com.example.fwitter.exceptions.UserDoesNotExistException;
 import com.example.fwitter.models.ApplicationUser;
 import com.example.fwitter.models.RegistrationObject;
@@ -70,6 +72,31 @@ public class AuthenticationController {
 		userService.generateEmailVerification(body.get("username"));
 		
 		return new ResponseEntity<String>("Verification code generated, email sent", HttpStatus.OK);
+	}
+	
+	@ExceptionHandler({IncorrectVerificationCodeException.class})
+	public ResponseEntity<String> incorrectCodeHandler(){
+		return new ResponseEntity<String>("The code provided does not match the users code", HttpStatus.CONFLICT);
+	}
+	
+	@PostMapping("/email/verify")
+	public ApplicationUser verifyEmail(@RequestBody LinkedHashMap<String,String> body) {
+		
+		Long code = Long.parseLong(body.get("code"));
+		
+		String username = body.get("username");
+		
+		return userService.verifyEmail(username,code);	
+	}
+	
+	@PutMapping("/update/password")
+	public ApplicationUser updatePassword(@RequestBody LinkedHashMap<String,String> body) {
+		
+		String username = body.get("username");
+		String password = body.get("password");
+		
+		return userService.setPassword(username,password);
+		
 	}
 	
 }
