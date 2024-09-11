@@ -2,7 +2,7 @@ import React from 'react'
 
 import './Home.css';
 import '../assets/global.css';
-import { Modal } from '../modal/Modal';
+import { Modal } from '../components/modal/Modal';
 import RegisterModal from '../features/register/components/RegisterModal/RegisterModal';
 
 export const Home:React.FC = () => {
