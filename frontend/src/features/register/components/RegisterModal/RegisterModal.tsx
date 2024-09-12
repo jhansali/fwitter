@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import { Modal } from '../../../../components/modal/Modal'
 import RegisterStepConter from '../RegistrationsStepCounter/RegistrationStepConter';
+import { determineModalContent } from '../../utils/RegisterModelUtils';
 import './RegisterModal.css';
 
 const RegisterModal: React.FC = () => {
@@ -15,6 +16,9 @@ const RegisterModal: React.FC = () => {
     <Modal>
       <div className='register-container'>
         <RegisterStepConter step={step} changeStep={setpButtonHandler}/>
+        <div className="register-modal-content">
+          {determineModalContent(step)}
+        </div>
       </div>
     </Modal>
   )
