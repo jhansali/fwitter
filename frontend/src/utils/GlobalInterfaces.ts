@@ -1,4 +1,5 @@
 interface ThemeColors{
+    gray: any;
     blue: string;
     black: string;
     darkgrey: string;
@@ -17,4 +18,13 @@ export interface StyledInputProps{
     valid: boolean;
     theme: Theme;
     color?: string;
+}
+
+export interface ValidatedInputState{
+    active: boolean;
+    valid: boolean;
+    typedIn: boolean;
+    labelActive: boolean;
+    labelColor: string;
+    value: string;
 }

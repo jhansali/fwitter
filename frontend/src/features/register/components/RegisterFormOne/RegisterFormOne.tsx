@@ -1,8 +1,9 @@
 import React,{useState,useEffect} from 'react'
 
 import { TextInput } from '../../../../components/TextInput/TextInput';
-
+import { ValidatedInput } from '../../../../components/ValidatedInput/ValidatedInput';
 import './RegisterFormOne.css';
+import { validateName } from '../../../../services/Validator';
 
 interface FormOneState {
     firstName: string;
@@ -34,10 +35,9 @@ export const RegisterFormOne:React.FC = () => {
     return (
         <div className='reg-step-one-container'>
             <div className="reg-step-one-content">
-                <TextInput name={"firstName"} label={'First'} errorMessage={'Please enter your name '} onChange={updateUser} />
-                <TextInput name={"lastName"} label={'Last'} errorMessage={'Please enter your name '} onChange={updateUser} />
-                <TextInput name={"email"} label={'Email'} errorMessage={'Please enter your email '} onChange={updateUser} />
-                <TextInput name={"dateOfBirth"} label={'Date of Birth'} errorMessage={'Please enter your date of birth '} onChange={updateUser} />
+                <ValidatedInput name='firstName' label='First' errorMessage={'Whats your name'} changeValue={updateUser} validator={validateName}></ValidatedInput>
+                <ValidatedInput name='lastName' label='Last' errorMessage={'Whats your name'} changeValue={updateUser} validator={validateName}></ValidatedInput>
+                <ValidatedInput name='email' label='Email' errorMessage={'Please enter a valid email'} changeValue={updateUser} validator={()=>true}></ValidatedInput>
             </div>
         </div>
     )
