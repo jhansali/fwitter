@@ -1,3 +1,4 @@
+import { act } from "react";
 import { StyledInputProps, ValidatedInputState } from "./GlobalInterfaces";
 
 export const determineStyledInputBorder = (props: StyledInputProps) => {
@@ -73,3 +74,11 @@ export const determineValidatedStyles = (
         labelColor
     };
 };
+
+export const determineValidatedSelectorStyles = (active: boolean, valid: boolean): string => {
+    if(!valid)
+        return "error";
+    if(active)
+        return "blue";
+    return "gray";
+}
