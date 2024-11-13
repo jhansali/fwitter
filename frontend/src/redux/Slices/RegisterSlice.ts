@@ -5,13 +5,14 @@ interface RegisterSliceState {
     loading: boolean;
     error:boolean;
     firstName: string;
-    firsrNameValid: boolean;
+    firstNameValid: boolean;
     lastName: string;
     lastNameValid: boolean;
     email: string;
     emailValid: boolean;
     dob: Dob;
     dobValid: boolean;
+    step: number;
 }
 
 interface UpdatePayload {
@@ -23,7 +24,7 @@ const initialState: RegisterSliceState = {
     loading: false,
     error: false,
     firstName: "",
-    firsrNameValid: false,
+    firstNameValid: false,
     lastName: "",
     lastNameValid: false,
     email: "",
@@ -34,6 +35,7 @@ const initialState: RegisterSliceState = {
         year: 0,
     },
     dobValid: false,
+    step: 1
 };
 
 export const RegisterSlice = createSlice({
@@ -51,10 +53,22 @@ export const RegisterSlice = createSlice({
             }
             console.log("updating the global state", state);
             return state;
+        },
+        incrementStep(state) {
+            state.step += 1;
+            return state;
+        },
+        decremenmtStep(state) {
+            if(state.step === 1 || state.step === 4 || state.step >= 6){
+                return state;
+            }else{
+                state.step -= 1;
+                return state;
+            }
         }
     }
 });
 
-export const { updateRegister } = RegisterSlice.actions;
+export const { updateRegister, incrementStep, decremenmtStep } = RegisterSlice.actions;
 
 export default RegisterSlice.reducer;

@@ -7,11 +7,12 @@ interface ValidatedTextInputProps {
     name: string;
     label: string;
     changeValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    data?: string;
 }
 
-export const ValidatedTextInput:React.FC<ValidatedTextInputProps> =({valid,name,label,changeValue}) =>{
+export const ValidatedTextInput:React.FC<ValidatedTextInputProps> =({valid,name,label,changeValue, data}) =>{
     
-    const [value,setValue] = useState<string>("");
+    const [value,setValue] = useState<string>(data ? data : "");
     const [borderActive,setBorderActive] = useState<boolean>(false);
     const [labelActive,setLabelActive] = useState<boolean>(false);
     const [color,setColor] = useState<string>("gray");
@@ -41,7 +42,7 @@ export const ValidatedTextInput:React.FC<ValidatedTextInputProps> =({valid,name,
             <StyledInputBox active={borderActive} valid={valid}>
                 <StyledInputLabel active={labelActive} color={color} valid={valid}>{label}</StyledInputLabel>
             </StyledInputBox>
-            <input className="valided-input-value" name={name} onFocus={focus} onBlur={focus} onChange={update}/>
+            <input className="valided-input-value" name={name} onFocus={focus} onBlur={focus} onChange={update} value={data}/>
         </div>
     )
 }

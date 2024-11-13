@@ -5,8 +5,13 @@ import { useDispatch,useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../redux/Store";
 import { updateRegister } from "../../../../redux/Slices/RegisterSlice";
 import { validDob } from "../../../../services/Validator";
+import { Dob } from "../../../../utils/GlobalInterfaces";
 
-export const RegisterDateInput:React.FC = () => {
+interface RegisterDateInputProps {
+    date: Dob;
+}
+
+export const RegisterDateInput:React.FC<RegisterDateInputProps> = ({date}) => {
 
     const state = useSelector((state:RootState) => state.register);
     const dispatch:AppDispatch = useDispatch();
@@ -27,9 +32,9 @@ export const RegisterDateInput:React.FC = () => {
 
     return (
         <div className="register-date">
-            <ValidatedDateSelector style="validated-month" valid={valid} name="Month" dropdown={getMonths} dispatcher={updateState}/>
-            <ValidatedDateSelector style="validated-day" valid={valid} name="Day" dropdown={getDays} dispatcher={updateState}/>
-            <ValidatedDateSelector style="validated-year" valid={valid} name="Year" dropdown={getYears} dispatcher={updateState}/>
+            <ValidatedDateSelector style="validated-month" valid={valid} name="Month" dropdown={getMonths} dispatcher={updateState} data={date.month}/>
+            <ValidatedDateSelector style="validated-day" valid={valid} name="Day" dropdown={getDays} dispatcher={updateState} data={date.day}/>
+            <ValidatedDateSelector style="validated-year" valid={valid} name="Year" dropdown={getYears} dispatcher={updateState} data={date.year}/>
         </div>
     )
 }

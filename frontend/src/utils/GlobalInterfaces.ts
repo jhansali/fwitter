@@ -34,3 +34,9 @@ export interface Dob{
     day: number;
     year: number;
 }
+
+export interface styledNextButtonProps{
+    active: boolean;
+    theme: Theme;
+    color:string;
+}

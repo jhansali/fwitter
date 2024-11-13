@@ -45,3 +45,9 @@ const checkAge = (dob:Dob):boolean => {
     }
     return false;
 }
+
+export const validateEmail = (value: string): boolean => {
+    return !!value.toLowerCase().match(
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
+    );
+  };
